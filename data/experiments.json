@@ -1,0 +1,76 @@
+[
+  {
+    "id": "word-portrait",
+    "slug": "word-portrait",
+    "serial": 1,
+    "title": "Word Portrait",
+    "one_liner": "Generate a unique portrait using nothing but words and typographic density.",
+    "status": "active",
+    "tags": [
+      "Creative"
+    ],
+    "thumbnail": "https://placehold.co/800x600/132244/20c997?text=Word+Portrait"
+  },
+  {
+    "id": "neural-noise",
+    "slug": "#",
+    "serial": 2,
+    "title": "Neural Noise",
+    "one_liner": "Visualizing high-dimensional vector embeddings in 3D space.",
+    "status": "active",
+    "tags": [
+      "AI",
+      "Data"
+    ],
+    "thumbnail": "https://placehold.co/800x600/2a1b3d/d63384?text=Neural+Noise"
+  },
+  {
+    "id": "flow-fields",
+    "slug": "#",
+    "serial": 3,
+    "title": "Flow Fields",
+    "one_liner": "Interactive particle systems simulation using flow fields and perlin noise.",
+    "status": "active",
+    "tags": [
+      "Creative"
+    ],
+    "thumbnail": "https://placehold.co/800x600/0f3c4c/0dcaf0?text=Flow+Fields"
+  },
+  {
+    "id": "audio-reactive",
+    "slug": "#",
+    "serial": 4,
+    "title": "Audio Reactor",
+    "one_liner": "A real-time audio visualizer that reacts to microphone input frequency.",
+    "status": "active",
+    "tags": [
+      "Creative"
+    ],
+    "thumbnail": "https://placehold.co/800x600/4c0f1e/ffc107?text=Audio+Reactor"
+  },
+  {
+    "id": "physics-engine",
+    "slug": "#",
+    "serial": 5,
+    "title": "Tiny Physics",
+    "one_liner": "A custom lightweight 2D physics engine built from scratch in JS.",
+    "status": "active",
+    "tags": [
+      "Creative",
+      "Data"
+    ],
+    "thumbnail": "https://placehold.co/800x600/1c3d2f/198754?text=Tiny+Physics"
+  },
+  {
+    "id": "inactive-demo",
+    "slug": "#",
+    "serial": 6,
+    "title": "Coming Soon",
+    "one_liner": "This experiment is currently being developed.",
+    "status": "inactive",
+    "tags": [
+      "WIP"
+    ],
+    "thumbnail": "https://placehold.co/800x600?text=Hidden"
+  }
+]

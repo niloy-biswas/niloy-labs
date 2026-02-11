@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading... - Niloy Labs</title>
+
+    <link rel="stylesheet" href="../assets/css/tokens.css">
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/pages/experiment.css">
+</head>
+
+<body>
+
+    <!-- Navbar Injected -->
+
+
+    <main class="container">
+        <header class="experiment-header">
+            <h1 id="exp-title">Loading...</h1>
+            <p id="exp-subtitle" class="text-muted">Please wait...</p>
+        </header>
+
+        <div class="experiment-layout">
+            <!-- Sidebar Info -->
+            <aside class="experiment-sidebar" id="exp-info">
+                <!-- Injected via JS -->
+            </aside>
+
+            <!-- Interactive Area -->
+            <div class="experiment-main">
+                <div class="canvas-container">
+                    <canvas id="canvas"></canvas>
+                </div>
+                <div class="controls">
+                    <button id="generate-btn" class="btn btn-primary">Generate User Portrait</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="../assets/js/utils.js"></script>
+    <script type="module" src="../assets/js/experiment-shell.js"></script>
+    <script type="module" src="./app.js"></script>
+</body>
+
+</html>

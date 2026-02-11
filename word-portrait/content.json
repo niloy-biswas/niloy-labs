@@ -1,0 +1,14 @@
+{
+    "title": "Word Portrait",
+    "subtitle": "A generative art experiment that constructs portraits using only typography.",
+    "sections": [
+        {
+            "heading": "What You Get",
+            "body": "This experiment explores the intersection of semantic meaning and visual representation. By uploading an image and providing a set of words, the algorithm reconstructs the visual data using text density and color."
+        },
+        {
+            "heading": "How to Use",
+            "body": "1. Upload a portrait image.\n2. Enter a list of words or a paragraph of text.\n3. Adjust density and size controls.\n4. Click 'Generate' to see the result."
+        }
+    ]
+}

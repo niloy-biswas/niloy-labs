@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niloy Labs</title>
+    <meta name="description" content="A digital playground for experiments, prototypes, and creative coding by Niloy.">
+
+    <link rel="stylesheet" href="./assets/css/tokens.css">
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/components.css">
+    <link rel="stylesheet" href="./assets/css/pages/home.css">
+</head>
+
+<body>
+
+    <!-- Navbar (Injected primarily) -->
+
+    <main class="container">
+        <section class="hero">
+            <h1 class="hero-title">Experiments & Ideas</h1>
+            <p class="hero-subtitle">A collection of digital sketches, prototypes, and unfinished thoughts.</p>
+        </section>
+
+        <!-- Featured Section -->
+        <section id="featured-container" class="featured-section">
+            <div class="hero-card">
+                <div class="hero-card-content">
+                    <span class="serial-badge" style="margin-bottom: var(--space-2)">No. 001</span>
+                    <h2 class="hero-card-title">Word Portrait</h2>
+                    <p class="hero-card-desc">Generate a unique portrait using nothing but words and typographic
+                        density.</p>
+                    <a href="/word-portrait/" class="btn btn-primary">View Experiment</a>
+                </div>
+                <div class="hero-card-media">
+                    <img src="https://placehold.co/800x600/132244/20c997?text=Word+Portrait" alt="Featured Experiment">
+                </div>
+            </div>
+        </section>
+
+        <!-- Filters -->
+        <section class="filters-section">
+            <div id="filter-chips" class="chip-group">
+                <!-- Injected via JS -->
+            </div>
+        </section>
+
+        <!-- Project Grid -->
+        <section id="experiment-grid" class="card-grid" style="margin-bottom: 4rem;">
+            <!-- Cards injected via JS -->
+        </section>
+    </main>
+
+    <!-- Footer (Injected) -->
+
+    <script type="module" src="./assets/js/home.js"></script>
+</body>
+
+</html>

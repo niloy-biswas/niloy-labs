@@ -1,0 +1,80 @@
+:root {
+    /* Colors - Deep Blue Theme */
+    --color-bg: #0a1128;
+    /* Deepest blue/black */
+    --color-surface: #132244;
+    /* Slightly lighter blue for cards */
+    --color-surface-hover: #1c3263;
+
+    --color-text: #f8f9fa;
+    /* Almost white */
+    --color-text-muted: #b0b8c8;
+    /* Blue-grey */
+
+    --color-border: #1f3a60;
+    --color-border-hover: #2d558d;
+
+    /* Colors - Teal Accent */
+    --color-primary: #20c997;
+    /* Teal */
+    --color-primary-600: #15a076;
+    --color-primary-100: rgba(32, 201, 151, 0.15);
+    /* Tint for backgrounds */
+    --color-primary-text: #70ffcd;
+    /* Lighter teal for text on dark bg */
+
+    /* Typography */
+    --font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-family-mono: "Fira Code", SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 1.875rem;
+    --font-size-4xl: 2.5rem;
+
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+
+    /* Spacing */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+
+    /* Radii */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1.25rem;
+    --radius-pill: 50rem;
+
+    /* Shadows - Adjusted for dark mode (subtle glows) */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+    --shadow-glow: 0 0 15px rgba(32, 201, 151, 0.15);
+    /* Teal glow */
+
+    /* Transitions */
+    --transition-fast: 150ms ease-in-out;
+    --transition-base: 250ms ease-in-out;
+
+    /* Z-Index */
+    --z-sticky: 100;
+    --z-modal: 1000;
+
+    /* Layout */
+    --container-max-width: 1200px;
+    --header-height: 80px;
+}
