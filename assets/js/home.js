@@ -1,5 +1,8 @@
 import { $, createElement, clearElement, getQueryParam, setQueryParam } from './utils.js';
-import { createCard, createNavbar, createFooter } from './components.js';
+import { createCard, createNavbar, createFooter, injectAnalytics } from './components.js';
+
+// Analytics
+injectAnalytics();
 
 const DOM = {
     // We'll inject layout into body primarily

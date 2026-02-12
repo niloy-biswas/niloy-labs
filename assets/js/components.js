@@ -1,41 +1,107 @@
 import { createElement } from './utils.js';
 
 /**
+ * Injects Google Analytics (GA4) and Microsoft Clarity tracking scripts.
+ * Call once from any page's JS to enable analytics.
+ */
+export function injectAnalytics() {
+    // GA4
+    const gtagScript = document.createElement('script');
+    gtagScript.async = true;
+    gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-MDND743N8W';
+    document.head.appendChild(gtagScript);
+
+    const gtagInline = document.createElement('script');
+    gtagInline.textContent = `
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-MDND743N8W');
+    `;
+    document.head.appendChild(gtagInline);
+
+    // Microsoft Clarity
+    const clarityScript = document.createElement('script');
+    clarityScript.textContent = `
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "jf2n0138eg");
+    `;
+    document.head.appendChild(clarityScript);
+}
+
+/**
  * Generates the standard Navbar
  * @param {string} rootPath - specific path to root (e.g. "." or "..")
+ * @param {string} variant - 'default' (centered pill) or 'experiment' (left aligned)
  */
-export function createNavbar(rootPath = '.') {
+export function createNavbar(rootPath = '.', variant = 'default') {
     const header = createElement('header', 'navbar');
-    const pill = createElement('div', 'navbar-pill');
 
-    const group = createElement('span', 'brand-group');
+    // Experiment variant: Left aligned, simpler container
+    if (variant === 'experiment') {
+        header.classList.add('navbar-experiment');
+        const group = createElement('span', 'brand-group');
 
-    const linkNiloy = createElement('a', 'brand-link', 'Niloy');
-    linkNiloy.href = 'https://niloy.tech';
+        const linkNiloy = createElement('a', 'brand-link', 'Niloy');
+        linkNiloy.href = 'https://niloy.tech';
 
-    const iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    iconSvg.setAttribute('class', 'brand-icon');
-    iconSvg.setAttribute('width', '20');
-    iconSvg.setAttribute('height', '20');
-    iconSvg.setAttribute('viewBox', '0 0 24 24');
-    iconSvg.setAttribute('fill', 'none');
-    iconSvg.setAttribute('stroke', 'currentColor');
-    iconSvg.setAttribute('stroke-width', '2');
-    iconSvg.setAttribute('stroke-linecap', 'round');
-    iconSvg.setAttribute('stroke-linejoin', 'round');
-    iconSvg.innerHTML = `
-    <path d="M10 2v7.31"></path>
-    <path d="M14 9.3V1.99"></path>
-    <path d="M8.5 2h7"></path>
-    <path d="M14 9.3a6.5 6.5 0 1 1-4 0"></path>
-  `;
+        const iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        iconSvg.setAttribute('class', 'brand-icon');
+        iconSvg.setAttribute('width', '20');
+        iconSvg.setAttribute('height', '20');
+        iconSvg.setAttribute('viewBox', '0 0 24 24');
+        iconSvg.setAttribute('fill', 'none');
+        iconSvg.setAttribute('stroke', 'currentColor');
+        iconSvg.setAttribute('stroke-width', '2');
+        iconSvg.setAttribute('stroke-linecap', 'round');
+        iconSvg.setAttribute('stroke-linejoin', 'round');
+        iconSvg.innerHTML = `
+      <path d="M10 2v7.31"></path>
+      <path d="M14 9.3V1.99"></path>
+      <path d="M8.5 2h7"></path>
+      <path d="M14 9.3a6.5 6.5 0 1 1-4 0"></path>
+    `;
 
-    const linkLabs = createElement('a', 'brand-link', 'Labs');
-    linkLabs.href = `${rootPath}/`;
+        const linkLabs = createElement('a', 'brand-link', 'Labs');
+        linkLabs.href = `${rootPath}/`;
 
-    group.append(linkNiloy, iconSvg, linkLabs);
-    pill.appendChild(group);
-    header.appendChild(pill);
+        group.append(linkNiloy, iconSvg, linkLabs);
+        header.appendChild(group);
+    } else {
+        // Default variant: Centered pill
+        const pill = createElement('div', 'navbar-pill');
+        const group = createElement('span', 'brand-group');
+
+        const linkNiloy = createElement('a', 'brand-link', 'Niloy');
+        linkNiloy.href = 'https://niloy.tech';
+
+        const iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        iconSvg.setAttribute('class', 'brand-icon');
+        iconSvg.setAttribute('width', '20');
+        iconSvg.setAttribute('height', '20');
+        iconSvg.setAttribute('viewBox', '0 0 24 24');
+        iconSvg.setAttribute('fill', 'none');
+        iconSvg.setAttribute('stroke', 'currentColor');
+        iconSvg.setAttribute('stroke-width', '2');
+        iconSvg.setAttribute('stroke-linecap', 'round');
+        iconSvg.setAttribute('stroke-linejoin', 'round');
+        iconSvg.innerHTML = `
+      <path d="M10 2v7.31"></path>
+      <path d="M14 9.3V1.99"></path>
+      <path d="M8.5 2h7"></path>
+      <path d="M14 9.3a6.5 6.5 0 1 1-4 0"></path>
+    `;
+
+        const linkLabs = createElement('a', 'brand-link', 'Labs');
+        linkLabs.href = `${rootPath}/`;
+
+        group.append(linkNiloy, iconSvg, linkLabs);
+        pill.appendChild(group);
+        header.appendChild(pill);
+    }
 
     return header;
 }
