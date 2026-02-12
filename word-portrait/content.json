@@ -1,14 +1,6 @@
 {
     "title": "Word Portrait",
     "subtitle": "A generative art experiment that constructs portraits using only typography.",
-    "sections": [
-        {
-            "heading": "What You Get",
-            "body": "This experiment explores the intersection of semantic meaning and visual representation. By uploading an image and providing a set of words, the algorithm reconstructs the visual data using text density and color."
-        },
-        {
-            "heading": "How to Use",
-            "body": "1. Upload a portrait image.\n2. Enter a list of words or a paragraph of text.\n3. Adjust density and size controls.\n4. Click 'Generate' to see the result."
-        }
-    ]
+    "default_image_url": "https://i.ibb.co.com/zVmRPPwg/Word-cloud-portrait.jpg",
+    "default_text": "I light the fuse\nAnd I watch it burn\nAnd somewhere deep inside I know there's a lesson to be learned\nIt's not the crime but the way that we pay for\nFeelings unmutual\nAnd you go upstairs\nAnd I hang my head\nSomebody said I let myself down as I crawled into bed\nI wandered why the hell I'd ever paid for\nFeelings unmutual\nI'm tired of living in the shadow\nThese paper walls I can't break through\nI'm sick of standing by your window\nTracing silhouettes of you\nBut when it gets dark\nYou light the spark\nAnd all the lies I tried to live by start falling apart\nWhoever knew that it could be so painful\nFeelings unmutual\nNow I can't escape\nThese things I've done\nBut my anxieties have promised me the worst is to come\nSo give up living for the life that you paid for\nFeelings unmutual have won"
 }

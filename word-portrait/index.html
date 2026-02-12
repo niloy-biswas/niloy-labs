@@ -4,45 +4,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading... - Niloy Labs</title>
-
+    <title>Word Portrait - Niloy Labs</title>
+    <link rel="icon" href="data:,">
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Playfair+Display:wght@400;700;900&family=Roboto+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <!-- Project Styles -->
     <link rel="stylesheet" href="../assets/css/tokens.css">
     <link rel="stylesheet" href="../assets/css/base.css">
     <link rel="stylesheet" href="../assets/css/components.css">
-    <link rel="stylesheet" href="../assets/css/pages/experiment.css">
+    <link rel="stylesheet" href="./styles.css">
+    <!-- Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js"></script>
 </head>
 
 <body>
+    <!-- Navbar injected by app.js -->
 
-    <!-- Navbar Injected -->
+    <div class="experiment-layout" style="padding-top: 60px; /* Space for navbar on mobile */">
 
+        <!-- Sidebar Controls -->
+        <aside class="settings-sidebar">
+            <div class="sidebar-header">
+                <h1 class="sidebar-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="4 7 4 4 20 4 20 7" />
+                        <line x1="9" x2="15" y1="20" y2="20" />
+                        <line x1="12" x2="12" y1="4" y2="20" />
+                    </svg>
+                    Text Portrait
+                </h1>
+            </div>
 
-    <main class="container">
-        <header class="experiment-header">
-            <h1 id="exp-title">Loading...</h1>
-            <p id="exp-subtitle" class="text-muted">Please wait...</p>
-        </header>
-
-        <div class="experiment-layout">
-            <!-- Sidebar Info -->
-            <aside class="experiment-sidebar" id="exp-info">
-                <!-- Injected via JS -->
-            </aside>
-
-            <!-- Interactive Area -->
-            <div class="experiment-main">
-                <div class="canvas-container">
-                    <canvas id="canvas"></canvas>
+            <div class="sidebar-content">
+                <!-- Image Upload -->
+                <div class="control-group">
+                    <label class="label-sm">Source Image</label>
+                    <div class="upload-zone">
+                        <input type="file" id="imageInput" accept="image/*" class="upload-input">
+                        <div class="upload-placeholder">
+                            <span class="text-xs text-muted">Click to Upload Photo</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="controls">
-                    <button id="generate-btn" class="btn btn-primary">Generate User Portrait</button>
+
+                <!-- Separation -->
+                <hr style="border-color: var(--color-border); opacity: 0.3;">
+
+                <!-- Smart Background -->
+                <div class="control-group">
+                    <label class="label-sm">Smart Background</label>
+                    <button id="detectBtn" class="btn btn-indigo btn-block btn-sm">
+                        <span id="detectText">Detect Person & Darken</span>
+                        <div id="detectLoader" class="spinner hidden"></div>
+                    </button>
+                    <button id="resetBtn" class="btn btn-sm btn-block hidden"
+                        style="background-color: var(--color-surface-hover);">Reset Original</button>
+
+                    <div class="opacity-50 pointer-events-none transition-opacity" id="bgDimmerGroup"
+                        style="margin-top: 8px;">
+                        <div class="range-header"><span>Dimness</span><span id="bgDimmerVal">90%</span></div>
+                        <input type="range" id="bgDimmer" min="0" max="1" step="0.05" value="0.9">
+                    </div>
+                </div>
+
+                <hr style="border-color: var(--color-border); opacity: 0.3;">
+
+                <!-- Text Input -->
+                <div class="control-group">
+                    <label class="label-sm">Text Content</label>
+                    <textarea id="textInput" class="textarea-dark" placeholder="Enter text..."></textarea>
+                    <button id="updateTextBtn" class="btn btn-sm btn-block"
+                        style="background-color: #fff; color: #000; margin-top: 5px;">Update Layer</button>
+                </div>
+
+                <hr style="border-color: var(--color-border); opacity: 0.3;">
+
+                <!-- Typography -->
+                <div class="control-group">
+                    <label class="label-sm">Typography</label>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
+                        <select id="fontFamily" class="select-dark">
+                            <option value="'Inter', sans-serif">Inter</option>
+                            <option value="'Playfair Display', serif">Playfair</option>
+                            <option value="'Roboto Mono', monospace">Mono</option>
+                        </select>
+                        <select id="fontWeight" class="select-dark">
+                            <option value="400">Regular</option>
+                            <option value="700" selected>Bold</option>
+                            <option value="900">Black</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-bottom: 8px;">
+                        <div class="range-header"><span>Size</span><span id="fontSizeVal">6px</span></div>
+                        <input type="range" id="fontSize" min="4" max="24" value="6">
+                    </div>
+                    <div>
+                        <div class="range-header"><span>Spacing</span><span id="letterSpacingVal">0px</span></div>
+                        <input type="range" id="letterSpacing" min="-2" max="5" step="0.5" value="0">
+                    </div>
+                </div>
+
+                <!-- Download -->
+                <div style="margin-top: auto; padding-top: 1rem;">
+                    <button id="downloadBtn" class="btn btn-green btn-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        Download Portrait
+                    </button>
+                    <div id="downloadStatus"
+                        style="text-align: center; font-size: 0.7rem; color: var(--color-text-muted); margin-top: 5px; min-height: 1.2em;">
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </aside>
 
-    <script type="module" src="../assets/js/utils.js"></script>
-    <script type="module" src="../assets/js/experiment-shell.js"></script>
+        <!-- Preview Area -->
+        <main class="preview-area">
+            <div id="exportContainer" class="portrait-container">
+                <div id="textLayer" class="text-mask"></div>
+            </div>
+        </main>
+
+    </div>
+
+    <!-- Scripts -->
     <script type="module" src="./app.js"></script>
 </body>
 

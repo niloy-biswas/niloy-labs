@@ -224,6 +224,26 @@
     /* Let clicks pass through around the pill */
 }
 
+.navbar-experiment {
+    justify-content: flex-start;
+    padding: var(--space-4) var(--space-6);
+    pointer-events: auto;
+    position: absolute;
+    /* Overlay on top of the app layout */
+    width: auto;
+    background: transparent;
+    z-index: 50;
+    /* Higher than sidebar/preview */
+}
+
+@media (min-width: 768px) {
+    .navbar-experiment {
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+}
+
 .navbar-pill {
     pointer-events: auto;
     display: flex;
