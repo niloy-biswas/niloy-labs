@@ -33,6 +33,17 @@ export function injectAnalytics() {
 }
 
 /**
+ * Send a custom event to GA4.
+ * @param {string} eventName - GA4 event name (e.g. 'experiment_click')
+ * @param {Object} [params] - Optional event parameters
+ */
+export function trackEvent(eventName, params = {}) {
+    if (typeof gtag === 'function') {
+        gtag('event', eventName, params);
+    }
+}
+
+/**
  * Generates the standard Navbar
  * @param {string} rootPath - specific path to root (e.g. "." or "..")
  * @param {string} variant - 'default' (centered pill) or 'experiment' (left aligned)
@@ -142,6 +153,7 @@ export function createCard(exp) {
     const link = createElement('a', 'card-link');
     // If slug starts with http, it is external, otherwise internal relative
     link.href = exp.slug.startsWith('http') ? exp.slug : `/${exp.slug}/`;
+    link.addEventListener('click', () => trackEvent('experiment_click', { experiment_title: exp.title, source: 'card' }));
 
     const thumb = createElement('div', 'card-thumb');
     const img = createElement('img');

@@ -1,5 +1,5 @@
 import { $, createElement, clearElement, getQueryParam, setQueryParam } from './utils.js';
-import { createCard, createNavbar, createFooter, injectAnalytics } from './components.js';
+import { createCard, createNavbar, createFooter, injectAnalytics, trackEvent } from './components.js';
 
 // Analytics
 injectAnalytics();
@@ -65,9 +65,8 @@ function renderFilters() {
 }
 
 function renderFeatured() {
-    // Just pick the first one matching the serial/logic
-    // For now, we assume "Word Portrait" (Serial 1) is the hero.
-    const featured = experiments.find(ex => ex.serial === 1) || experiments[0];
+    // Pick the experiment marked as "featured" in experiments.json
+    const featured = experiments.find(ex => ex.featured) || experiments[0];
 
     // Requirement: Featured hero post should NOT be filtered. Always show it.
     if (!featured) {
@@ -86,7 +85,10 @@ function renderFeatured() {
 
     if (title) title.textContent = featured.title;
     if (desc) desc.textContent = featured.one_liner;
-    if (link) link.href = `/${featured.slug}/`;
+    if (link) {
+        link.href = `/${featured.slug}/`;
+        link.addEventListener('click', () => trackEvent('experiment_click', { experiment_title: featured.title, source: 'hero' }));
+    }
     if (img) img.src = featured.thumbnail;
     if (tag) tag.textContent = `No. ${String(featured.serial).padStart(3, '0')}`;
 }

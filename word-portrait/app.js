@@ -1,4 +1,4 @@
-import { createNavbar, createFooter, injectAnalytics } from '../assets/js/components.js';
+import { createNavbar, createFooter, injectAnalytics, trackEvent } from '../assets/js/components.js';
 
 // Analytics
 injectAnalytics();
@@ -250,6 +250,7 @@ async function attemptDownload(btn, status) {
         btn.innerHTML = originalText;
         btn.disabled = false;
         status.innerText = "✓ Saved!";
+        trackEvent('portrait_downloaded');
 
     } catch (err) {
         console.error('Download error:', err);
@@ -267,6 +268,7 @@ const imageInput = document.getElementById('imageInput');
 imageInput.addEventListener('change', e => {
     const file = e.target.files[0];
     if (file) {
+        trackEvent('image_uploaded');
         const reader = new FileReader();
         reader.onload = evt => {
             originalImageSrc = evt.target.result;
