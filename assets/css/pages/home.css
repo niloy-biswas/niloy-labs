@@ -68,7 +68,7 @@
 @media (min-width: 768px) {
     .hero-card-media {
         order: 2;
-        height: auto;
+        height: 350px;
         border-bottom: none;
         border-left: 1px solid var(--color-border);
     }
