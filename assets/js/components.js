@@ -1,36 +1,36 @@
-import { createElement } from './utils.js';
-import { loadIcon } from './icons.js';
+import { createElement } from "./utils.js";
+import { loadIcon } from "./icons.js";
 
 /**
  * Injects Google Analytics (GA4) and Microsoft Clarity tracking scripts.
  * Call once from any page's JS to enable analytics.
  */
 export function injectAnalytics() {
-    // GA4
-    const gtagScript = document.createElement('script');
-    gtagScript.async = true;
-    gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-MDND743N8W';
-    document.head.appendChild(gtagScript);
+  // GA4
+  const gtagScript = document.createElement("script");
+  gtagScript.async = true;
+  gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-MDND743N8W";
+  document.head.appendChild(gtagScript);
 
-    const gtagInline = document.createElement('script');
-    gtagInline.textContent = `
+  const gtagInline = document.createElement("script");
+  gtagInline.textContent = `
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-        gtag('config', 'G-MDND743N8W');
+        gtag('config', 'G-MDND743N8W', { cookie_domain: 'niloy.tech' });
     `;
-    document.head.appendChild(gtagInline);
+  document.head.appendChild(gtagInline);
 
-    // Microsoft Clarity
-    const clarityScript = document.createElement('script');
-    clarityScript.textContent = `
+  // Microsoft Clarity
+  const clarityScript = document.createElement("script");
+  clarityScript.textContent = `
         (function (c, l, a, r, i, t, y) {
             c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
             t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
             y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
         })(window, document, "clarity", "script", "jf2n0138eg");
     `;
-    document.head.appendChild(clarityScript);
+  document.head.appendChild(clarityScript);
 }
 
 /**
@@ -39,9 +39,9 @@ export function injectAnalytics() {
  * @param {Object} [params] - Optional event parameters
  */
 export function trackEvent(eventName, params = {}) {
-    if (typeof gtag === 'function') {
-        gtag('event', eventName, params);
-    }
+  if (typeof gtag === "function") {
+    gtag("event", eventName, params);
+  }
 }
 
 /**
@@ -49,81 +49,81 @@ export function trackEvent(eventName, params = {}) {
  * @param {string} rootPath - specific path to root (e.g. "." or "..")
  * @param {string} variant - 'default' (centered pill) or 'experiment' (left aligned)
  */
-export function createNavbar(rootPath = '.', variant = 'default') {
-    const header = createElement('header', 'navbar');
+export function createNavbar(rootPath = ".", variant = "default") {
+  const header = createElement("header", "navbar");
 
-    // Experiment variant: Left aligned, simpler container
-    if (variant === 'experiment') {
-        header.classList.add('navbar-experiment');
-        const group = createElement('span', 'brand-group');
+  // Experiment variant: Left aligned, simpler container
+  if (variant === "experiment") {
+    header.classList.add("navbar-experiment");
+    const group = createElement("span", "brand-group");
 
-        const linkNiloy = createElement('a', 'brand-link', 'Niloy');
-        linkNiloy.href = 'https://niloy.tech';
+    const linkNiloy = createElement("a", "brand-link", "Niloy");
+    linkNiloy.href = "https://niloy.tech";
 
-        // Placeholder that gets replaced once SVG loads
-        const iconPlaceholder = createElement('span', 'brand-icon');
-        loadIcon(`${rootPath}/assets/icons/flask.svg`, {
-            class: 'brand-icon',
-            width: '34',
-            height: '34'
-        }).then(svg => iconPlaceholder.replaceWith(svg));
+    // Placeholder that gets replaced once SVG loads
+    const iconPlaceholder = createElement("span", "brand-icon");
+    loadIcon(`${rootPath}/assets/icons/flask.svg`, {
+      class: "brand-icon",
+      width: "34",
+      height: "34",
+    }).then((svg) => iconPlaceholder.replaceWith(svg));
 
-        const linkLabs = createElement('a', 'brand-link', 'Labs');
-        linkLabs.href = `${rootPath}/`;
+    const linkLabs = createElement("a", "brand-link", "Labs");
+    linkLabs.href = `${rootPath}/`;
 
-        group.append(linkNiloy, iconPlaceholder, linkLabs);
-        header.appendChild(group);
-    } else {
-        // Default variant: Centered pill
-        const pill = createElement('div', 'navbar-pill');
-        const group = createElement('span', 'brand-group');
+    group.append(linkNiloy, iconPlaceholder, linkLabs);
+    header.appendChild(group);
+  } else {
+    // Default variant: Centered pill
+    const pill = createElement("div", "navbar-pill");
+    const group = createElement("span", "brand-group");
 
-        const linkNiloy = createElement('a', 'brand-link', 'Niloy');
-        linkNiloy.href = 'https://niloy.tech';
+    const linkNiloy = createElement("a", "brand-link", "Niloy");
+    linkNiloy.href = "https://niloy.tech";
 
-        // Placeholder that gets replaced once SVG loads
-        const iconPlaceholder = createElement('span', 'brand-icon');
-        loadIcon(`${rootPath}/assets/icons/flask.svg`, {
-            class: 'brand-icon',
-            width: '34',
-            height: '34'
-        }).then(svg => iconPlaceholder.replaceWith(svg));
+    // Placeholder that gets replaced once SVG loads
+    const iconPlaceholder = createElement("span", "brand-icon");
+    loadIcon(`${rootPath}/assets/icons/flask.svg`, {
+      class: "brand-icon",
+      width: "34",
+      height: "34",
+    }).then((svg) => iconPlaceholder.replaceWith(svg));
 
-        const linkLabs = createElement('a', 'brand-link', 'Labs');
-        linkLabs.href = `${rootPath}/`;
+    const linkLabs = createElement("a", "brand-link", "Labs");
+    linkLabs.href = `${rootPath}/`;
 
-        group.append(linkNiloy, iconPlaceholder, linkLabs);
-        pill.appendChild(group);
-        header.appendChild(pill);
-    }
+    group.append(linkNiloy, iconPlaceholder, linkLabs);
+    pill.appendChild(group);
+    header.appendChild(pill);
+  }
 
-    return header;
+  return header;
 }
 
 /**
  * Generates the standard Footer
  */
 export function createFooter() {
-    const footer = createElement('footer', 'container');
-    footer.style.padding = '2rem 1rem';
-    footer.style.marginTop = 'auto';
-    footer.style.borderTop = '1px solid var(--color-border)';
+  const footer = createElement("footer", "container");
+  footer.style.padding = "2rem 1rem";
+  footer.style.marginTop = "auto";
+  footer.style.borderTop = "1px solid var(--color-border)";
 
-    const div = createElement('div', 'text-center');
+  const div = createElement("div", "text-center");
 
-    const p = createElement('p', 'text-muted text-sm', '© Niloy Biswas');
-    p.style.marginBottom = '0.5rem';
+  const p = createElement("p", "text-muted text-sm", "© Niloy Biswas");
+  p.style.marginBottom = "0.5rem";
 
-    const link = createElement('a', 'text-sm', '← Return to niloy.tech');
-    link.href = 'https://niloy.tech';
-    link.style.color = 'var(--color-text-muted)';
-    link.style.textDecoration = 'none';
-    link.style.opacity = '0.7';
+  const link = createElement("a", "text-sm", "← Return to niloy.tech");
+  link.href = "https://niloy.tech";
+  link.style.color = "var(--color-text-muted)";
+  link.style.textDecoration = "none";
+  link.style.opacity = "0.7";
 
-    div.append(p, link);
-    footer.appendChild(div);
+  div.append(p, link);
+  footer.appendChild(div);
 
-    return footer;
+  return footer;
 }
 
 /**
@@ -131,34 +131,43 @@ export function createFooter() {
  * @param {Object} exp - Experiment data object
  */
 export function createCard(exp) {
-    const article = createElement('article', 'card');
+  const article = createElement("article", "card");
 
-    const link = createElement('a', 'card-link');
-    // If slug starts with http, it is external, otherwise internal relative
-    link.href = exp.slug.startsWith('http') ? exp.slug : `/${exp.slug}/`;
-    link.addEventListener('click', () => trackEvent('experiment_click', { experiment_title: exp.title, source: 'card' }));
+  const link = createElement("a", "card-link");
+  // If slug starts with http, it is external, otherwise internal relative
+  link.href = exp.slug.startsWith("http") ? exp.slug : `/${exp.slug}/`;
+  link.addEventListener("click", () =>
+    trackEvent("experiment_click", {
+      experiment_title: exp.title,
+      source: "card",
+    }),
+  );
 
-    const thumb = createElement('div', 'card-thumb');
-    const img = createElement('img');
-    img.src = exp.thumbnail;
-    img.alt = exp.title;
-    img.loading = 'lazy';
-    thumb.appendChild(img);
+  const thumb = createElement("div", "card-thumb");
+  const img = createElement("img");
+  img.src = exp.thumbnail;
+  img.alt = exp.title;
+  img.loading = "lazy";
+  thumb.appendChild(img);
 
-    const content = createElement('div', 'card-content');
+  const content = createElement("div", "card-content");
 
-    const header = createElement('div', 'card-header');
-    const badge = createElement('span', 'serial-badge', `No. ${String(exp.serial).padStart(3, '0')}`);
-    const title = createElement('h3', 'card-title', exp.title);
-    header.append(badge, title);
+  const header = createElement("div", "card-header");
+  const badge = createElement(
+    "span",
+    "serial-badge",
+    `No. ${String(exp.serial).padStart(3, "0")}`,
+  );
+  const title = createElement("h3", "card-title", exp.title);
+  header.append(badge, title);
 
-    const desc = createElement('p', 'card-desc', exp.one_liner);
+  const desc = createElement("p", "card-desc", exp.one_liner);
 
-    const cta = createElement('span', 'card-cta', 'View Experiment');
+  const cta = createElement("span", "card-cta", "View Experiment");
 
-    content.append(header, desc, cta);
-    link.append(thumb, content);
-    article.appendChild(link);
+  content.append(header, desc, cta);
+  link.append(thumb, content);
+  article.appendChild(link);
 
-    return article;
+  return article;
 }
