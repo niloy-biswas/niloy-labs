@@ -265,22 +265,52 @@ async function attemptDownload(btn, status) {
 
 const imageInput = document.getElementById('imageInput');
 
-imageInput.addEventListener('change', e => {
+/**
+ * Resize image to a max dimension to prevent massive data URLs crashing the browser.
+ * Returns a data URL of the resized image.
+ */
+function resizeImage(file, maxDim = 2000) {
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+            let { width, height } = img;
+
+            // Only resize if larger than maxDim
+            if (width > maxDim || height > maxDim) {
+                const ratio = Math.min(maxDim / width, maxDim / height);
+                width = Math.round(width * ratio);
+                height = Math.round(height * ratio);
+            }
+
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            resolve(canvas.toDataURL('image/jpeg', 0.92));
+        };
+        img.src = URL.createObjectURL(file);
+    });
+}
+
+imageInput.addEventListener('change', async (e) => {
     const file = e.target.files[0];
     if (file) {
         trackEvent('image_uploaded');
-        const reader = new FileReader();
-        reader.onload = evt => {
-            originalImageSrc = evt.target.result;
-            currentImageElement.src = originalImageSrc;
-            root.style.setProperty('--bg-image', `url(${originalImageSrc})`);
 
-            currentMask = null;
-            document.getElementById('resetBtn').classList.add('hidden');
-            document.getElementById('bgDimmerGroup').classList.add('opacity-50', 'pointer-events-none');
-            document.getElementById('detectText').innerText = "Detect Person & Darken";
-        };
-        reader.readAsDataURL(file);
+        const dataUrl = await resizeImage(file);
+        originalImageSrc = dataUrl;
+        currentImageElement.src = originalImageSrc;
+        root.style.setProperty('--bg-image', `url(${originalImageSrc})`);
+
+        // Dismiss empty state, show portrait
+        document.getElementById('previewArea').classList.add('has-image');
+        document.getElementById('exportContainer').classList.remove('hidden');
+
+        currentMask = null;
+        document.getElementById('resetBtn').classList.add('hidden');
+        document.getElementById('bgDimmerGroup').classList.add('opacity-50', 'pointer-events-none');
+        document.getElementById('detectText').innerText = "Detect Person & Darken";
     }
 });
 
@@ -329,50 +359,18 @@ document.getElementById('fontFamily').addEventListener('change', e => textLayer.
 document.getElementById('fontWeight').addEventListener('change', e => root.style.setProperty('--font-weight', e.target.value));
 document.getElementById('updateTextBtn').addEventListener('click', updateTextDisplay);
 
-// --- AUTO INITIALIZATION ON LOAD ---
+// --- INITIALIZATION: Load default text only (no default image) ---
 window.addEventListener('load', async () => {
     try {
-        // Fetch external content
         const response = await fetch('./content.json');
         const content = await response.json();
 
-        // Populate specific elements
         if (content.default_text) {
             textInput.value = content.default_text;
         }
 
-        const directUrl = content.default_image_url || USER_IMAGE_URL;
-
-        root.style.setProperty('--bg-image', `url(${directUrl})`);
-
-        currentImageElement.src = directUrl;
-        originalImageSrc = directUrl;
-
         updateTextDisplay();
-
-        currentImageElement.onload = async () => {
-            console.log("Image loaded. Starting Auto-Detect...");
-            try {
-                document.getElementById('detectLoader').classList.remove('hidden');
-                document.getElementById('detectText').innerText = "Auto-Detecting...";
-
-                await initMediaPipe();
-                await selfieSegmentation.send({ image: currentImageElement });
-            } catch (err) {
-                console.error("Auto-detect failed:", err);
-                // Fail silently or show UI error, but allow manual retry
-                document.getElementById('detectLoader').classList.add('hidden');
-                document.getElementById('detectText').innerText = "Detection Failed";
-            }
-        };
-
-        currentImageElement.onerror = () => {
-            console.error("Failed to load image from URL");
-            document.getElementById('detectLoader').classList.add('hidden');
-            document.getElementById('detectText').innerText = "Load Failed";
-        };
-
     } catch (e) {
-        console.error("Failed to load content.json. Ensure the file exists and is being served.", e);
+        console.error("Failed to load content.json.", e);
     }
 });
