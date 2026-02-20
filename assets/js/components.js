@@ -1,4 +1,5 @@
 import { createElement } from './utils.js';
+import { loadIcon } from './icons.js';
 
 /**
  * Injects Google Analytics (GA4) and Microsoft Clarity tracking scripts.
@@ -59,27 +60,18 @@ export function createNavbar(rootPath = '.', variant = 'default') {
         const linkNiloy = createElement('a', 'brand-link', 'Niloy');
         linkNiloy.href = 'https://niloy.tech';
 
-        const iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        iconSvg.setAttribute('class', 'brand-icon');
-        iconSvg.setAttribute('width', '20');
-        iconSvg.setAttribute('height', '20');
-        iconSvg.setAttribute('viewBox', '0 0 24 24');
-        iconSvg.setAttribute('fill', 'none');
-        iconSvg.setAttribute('stroke', 'currentColor');
-        iconSvg.setAttribute('stroke-width', '2');
-        iconSvg.setAttribute('stroke-linecap', 'round');
-        iconSvg.setAttribute('stroke-linejoin', 'round');
-        iconSvg.innerHTML = `
-      <path d="M10 2v7.31"></path>
-      <path d="M14 9.3V1.99"></path>
-      <path d="M8.5 2h7"></path>
-      <path d="M14 9.3a6.5 6.5 0 1 1-4 0"></path>
-    `;
+        // Placeholder that gets replaced once SVG loads
+        const iconPlaceholder = createElement('span', 'brand-icon');
+        loadIcon(`${rootPath}/assets/icons/flask.svg`, {
+            class: 'brand-icon',
+            width: '34',
+            height: '34'
+        }).then(svg => iconPlaceholder.replaceWith(svg));
 
         const linkLabs = createElement('a', 'brand-link', 'Labs');
         linkLabs.href = `${rootPath}/`;
 
-        group.append(linkNiloy, iconSvg, linkLabs);
+        group.append(linkNiloy, iconPlaceholder, linkLabs);
         header.appendChild(group);
     } else {
         // Default variant: Centered pill
@@ -89,27 +81,18 @@ export function createNavbar(rootPath = '.', variant = 'default') {
         const linkNiloy = createElement('a', 'brand-link', 'Niloy');
         linkNiloy.href = 'https://niloy.tech';
 
-        const iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        iconSvg.setAttribute('class', 'brand-icon');
-        iconSvg.setAttribute('width', '20');
-        iconSvg.setAttribute('height', '20');
-        iconSvg.setAttribute('viewBox', '0 0 24 24');
-        iconSvg.setAttribute('fill', 'none');
-        iconSvg.setAttribute('stroke', 'currentColor');
-        iconSvg.setAttribute('stroke-width', '2');
-        iconSvg.setAttribute('stroke-linecap', 'round');
-        iconSvg.setAttribute('stroke-linejoin', 'round');
-        iconSvg.innerHTML = `
-      <path d="M10 2v7.31"></path>
-      <path d="M14 9.3V1.99"></path>
-      <path d="M8.5 2h7"></path>
-      <path d="M14 9.3a6.5 6.5 0 1 1-4 0"></path>
-    `;
+        // Placeholder that gets replaced once SVG loads
+        const iconPlaceholder = createElement('span', 'brand-icon');
+        loadIcon(`${rootPath}/assets/icons/flask.svg`, {
+            class: 'brand-icon',
+            width: '34',
+            height: '34'
+        }).then(svg => iconPlaceholder.replaceWith(svg));
 
         const linkLabs = createElement('a', 'brand-link', 'Labs');
         linkLabs.href = `${rootPath}/`;
 
-        group.append(linkNiloy, iconSvg, linkLabs);
+        group.append(linkNiloy, iconPlaceholder, linkLabs);
         pill.appendChild(group);
         header.appendChild(pill);
     }
